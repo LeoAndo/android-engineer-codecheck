@@ -21,7 +21,7 @@ class RepositoriesViewModel : ViewModel() {
     var lastSearchDate: Date? = null
         private set
 
-    private val coroutineExceptionHandler = CoroutineExceptionHandler() { _, throwable ->
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _error.value = throwable
     }
     private val _results = MutableLiveData<List<Item>>()
