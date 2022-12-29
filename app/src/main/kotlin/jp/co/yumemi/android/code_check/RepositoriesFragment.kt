@@ -6,12 +6,14 @@ package jp.co.yumemi.android.code_check
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.*
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoriesBinding
 import jp.co.yumemi.android.code_check.extentions.hideKeyboard
+import jp.co.yumemi.android.code_check.extentions.showToast
 import jp.co.yumemi.android.code_check.model.Item
 
 /**
@@ -48,6 +50,9 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
 
         viewModel.results.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+        viewModel.error.observe(viewLifecycleOwner) {
+            requireContext().showToast(it.localizedMessage)
         }
     }
 
