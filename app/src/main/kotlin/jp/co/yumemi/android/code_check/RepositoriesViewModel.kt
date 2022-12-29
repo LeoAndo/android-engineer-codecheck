@@ -22,10 +22,12 @@ class RepositoriesViewModel : ViewModel() {
         private set
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler() { _, throwable ->
-
+        _error.value = throwable
     }
     private val _results = MutableLiveData<List<Item>>()
     val results get() = _results
+    private val _error = MutableLiveData<Throwable>()
+    val error get() = _error
 
     fun searchResults(inputText: String) {
         viewModelScope.launch(coroutineExceptionHandler) {
