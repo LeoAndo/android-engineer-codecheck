@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import coil.load
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoryBinding
 
@@ -20,11 +21,12 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
 
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by navGraphViewModels<RepositoriesViewModel>(R.id.nav_graph)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("検索した日時", TopActivity.lastSearchDate?.toString() ?: "no date")
+        Log.d("検索した日時", viewModel.lastSearchDate?.toString() ?: "no date")
 
         _binding = FragmentRepositoryBinding.bind(view)
 
@@ -32,7 +34,8 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
 
         binding.ownerIconView.load(item.ownerIconUrl)
         binding.nameView.text = item.name
-        binding.languageView.text = item.language
+        binding.languageView.text =
+            requireContext().getString(R.string.written_language, item.language)
         binding.starsView.text = "${item.stargazersCount} stars"
         binding.watchersView.text = "${item.watchersCount} watchers"
         binding.forksView.text = "${item.forksCount} forks"

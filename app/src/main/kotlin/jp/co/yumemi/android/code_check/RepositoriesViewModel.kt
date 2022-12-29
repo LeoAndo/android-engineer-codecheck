@@ -3,14 +3,12 @@
  */
 package jp.co.yumemi.android.code_check
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import jp.co.yumemi.android.code_check.TopActivity.Companion.lastSearchDate
 import jp.co.yumemi.android.code_check.model.Item
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -18,7 +16,9 @@ import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.util.*
 
-class RepositoriesViewModel(private val context: Context) : ViewModel() {
+class RepositoriesViewModel : ViewModel() {
+    var lastSearchDate: Date? = null
+        private set
 
     fun searchResults(inputText: String): List<Item> = runBlocking {
         val client = HttpClient(Android)
@@ -49,7 +49,7 @@ class RepositoriesViewModel(private val context: Context) : ViewModel() {
                     Item(
                         name = name,
                         ownerIconUrl = ownerIconUrl,
-                        language = context.getString(R.string.written_language, language),
+                        language = language,
                         stargazersCount = stargazersCount,
                         watchersCount = watchersCount,
                         forksCount = forksCount,
