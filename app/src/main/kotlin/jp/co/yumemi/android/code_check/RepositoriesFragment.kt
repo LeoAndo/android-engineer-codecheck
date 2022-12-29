@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.*
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoriesBinding
+import jp.co.yumemi.android.code_check.extentions.hideKeyboard
 import jp.co.yumemi.android.code_check.model.Item
 
 /**
@@ -33,6 +34,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
         binding.searchInputText.setOnEditorActionListener { editText, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.searchResults(editText.text.toString())
+                requireActivity().hideKeyboard()
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
