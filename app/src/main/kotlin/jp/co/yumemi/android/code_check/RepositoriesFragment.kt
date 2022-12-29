@@ -21,11 +21,11 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
 
         val binding = FragmentRepositoriesBinding.bind(view)
 
-        val viewModel = RepositoriesViewModel(context!!)
+        val viewModel = RepositoriesViewModel(requireContext())
 
-        val layoutManager = LinearLayoutManager(context!!)
+        val layoutManager = LinearLayoutManager(requireContext())
         val dividerItemDecoration =
-            DividerItemDecoration(context!!, layoutManager.orientation)
+            DividerItemDecoration(requireContext(), layoutManager.orientation)
         val adapter = RepositoriesListAdapter(object : RepositoriesListAdapter.OnItemClickListener {
             override fun itemClick(item: Item) {
                 gotoRepositoryFragment(item)
