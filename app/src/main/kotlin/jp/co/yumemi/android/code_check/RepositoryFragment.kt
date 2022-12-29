@@ -18,24 +18,29 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
 
     private val args: RepositoryFragmentArgs by navArgs()
 
-    private var binding: FragmentRepositoryBinding? = null
-    private val _binding get() = binding!!
+    private var _binding: FragmentRepositoryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("検索した日時", TopActivity.lastSearchDate?.toString() ?: "no date")
 
-        binding = FragmentRepositoryBinding.bind(view)
+        _binding = FragmentRepositoryBinding.bind(view)
 
         val item = args.item
 
-        _binding.ownerIconView.load(item.ownerIconUrl);
-        _binding.nameView.text = item.name;
-        _binding.languageView.text = item.language;
-        _binding.starsView.text = "${item.stargazersCount} stars";
-        _binding.watchersView.text = "${item.watchersCount} watchers";
-        _binding.forksView.text = "${item.forksCount} forks";
-        _binding.openIssuesView.text = "${item.openIssuesCount} open issues";
+        binding.ownerIconView.load(item.ownerIconUrl)
+        binding.nameView.text = item.name
+        binding.languageView.text = item.language
+        binding.starsView.text = "${item.stargazersCount} stars"
+        binding.watchersView.text = "${item.watchersCount} watchers"
+        binding.forksView.text = "${item.forksCount} forks"
+        binding.openIssuesView.text = "${item.openIssuesCount} open issues"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
