@@ -32,7 +32,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
 
         binding.searchInputText.setOnEditorActionListener { editText, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
-                viewModel.searchResults(editText.text.toString()).let { adapter.submitList(it) }
+                viewModel.searchResults(editText.text.toString())
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
@@ -42,6 +42,10 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
             it.layoutManager = layoutManager
             it.addItemDecoration(dividerItemDecoration)
             it.adapter = adapter
+        }
+
+        viewModel.results.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
     }
 
