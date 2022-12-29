@@ -6,21 +6,22 @@ package jp.co.yumemi.android.code_check
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.*
+import dagger.hilt.android.AndroidEntryPoint
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoriesBinding
 import jp.co.yumemi.android.code_check.extentions.hideKeyboard
 import jp.co.yumemi.android.code_check.extentions.showToast
-import jp.co.yumemi.android.code_check.model.Item
+import jp.co.yumemi.android.code_check.model.RepositorySummary
 
 /**
  * リポジトリ検索画面
  */
+@AndroidEntryPoint
 class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
-    private val viewModel by navGraphViewModels<RepositoriesViewModel>(R.id.nav_graph)
+    private val viewModel by viewModels<RepositoriesViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,7 +57,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
         }
     }
 
-    private fun gotoRepositoryFragment(item: Item) {
+    private fun gotoRepositoryFragment(item: RepositorySummary) {
         val action =
             RepositoriesFragmentDirections.actionRepositoriesFragmentToRepositoryFragment(item = item)
         findNavController().navigate(action)

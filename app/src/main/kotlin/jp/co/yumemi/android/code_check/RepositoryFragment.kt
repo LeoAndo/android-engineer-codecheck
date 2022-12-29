@@ -10,23 +10,25 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navGraphViewModels
 import coil.load
+import dagger.hilt.android.AndroidEntryPoint
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoryBinding
 
 /**
  * リポジトリ詳細画面
  */
+@AndroidEntryPoint
 class RepositoryFragment : Fragment(R.layout.fragment_repository) {
 
     private val args: RepositoryFragmentArgs by navArgs()
 
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by navGraphViewModels<RepositoriesViewModel>(R.id.nav_graph)
+    // private val viewModel by navGraphViewModels<RepositoriesViewModel>(R.id.nav_graph)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("検索した日時", viewModel.lastSearchDate?.toString() ?: "no date")
+        // Log.d("検索した日時", viewModel.lastSearchDate?.toString() ?: "no date")
 
         _binding = FragmentRepositoryBinding.bind(view)
 

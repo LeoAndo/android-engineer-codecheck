@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import jp.co.yumemi.android.code_check.model.Item
+import jp.co.yumemi.android.code_check.model.RepositorySummary
 
-class RepositoriesListAdapter(private val onItemClick: (Item) -> Unit) :
-    ListAdapter<Item, RepositoriesListAdapter.ViewHolder>(ITEM_CALLBACK) {
+class RepositoriesListAdapter(private val onItemClick: (RepositorySummary) -> Unit) :
+    ListAdapter<RepositorySummary, RepositoriesListAdapter.ViewHolder>(ITEM_CALLBACK) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -31,12 +31,12 @@ class RepositoriesListAdapter(private val onItemClick: (Item) -> Unit) :
     }
 }
 
-private val ITEM_CALLBACK = object : DiffUtil.ItemCallback<Item>() {
-    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+private val ITEM_CALLBACK = object : DiffUtil.ItemCallback<RepositorySummary>() {
+    override fun areItemsTheSame(oldItem: RepositorySummary, newItem: RepositorySummary): Boolean {
         return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+    override fun areContentsTheSame(oldItem: RepositorySummary, newItem: RepositorySummary): Boolean {
         return oldItem == newItem
     }
 }
