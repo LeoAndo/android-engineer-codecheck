@@ -9,7 +9,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
-import jp.co.yumemi.android.code_check.TopActivity.Companion.lastSearchDate
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoryBinding
 
 /**
@@ -25,11 +24,11 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("検索した日時", lastSearchDate.toString())
+        Log.d("検索した日時", TopActivity.lastSearchDate?.toString() ?: "no date")
 
         binding = FragmentRepositoryBinding.bind(view)
 
-        var item = args.item
+        val item = args.item
 
         _binding.ownerIconView.load(item.ownerIconUrl);
         _binding.nameView.text = item.name;
