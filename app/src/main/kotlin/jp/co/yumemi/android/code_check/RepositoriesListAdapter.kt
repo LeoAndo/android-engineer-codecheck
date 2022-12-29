@@ -7,15 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import jp.co.yumemi.android.code_check.model.Item
 
-class RepositoriesListAdapter(private val itemClickListener: OnItemClickListener) :
+class RepositoriesListAdapter(private val onItemClick: (Item) -> Unit) :
     ListAdapter<Item, RepositoriesListAdapter.ViewHolder>(ITEM_CALLBACK) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
-    interface OnItemClickListener {
-        fun itemClick(item: Item)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,11 +22,11 @@ class RepositoriesListAdapter(private val itemClickListener: OnItemClickListener
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        (holder.itemView.findViewById<View>(R.id.repositoryNameView) as TextView).text =
-            item.name
+        val txtRepoName = holder.itemView.findViewById<TextView>(R.id.repositoryNameView)
+        txtRepoName.text = item.name
 
         holder.itemView.setOnClickListener {
-            itemClickListener.itemClick(item)
+            onItemClick(item)
         }
     }
 }

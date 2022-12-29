@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoriesBinding
+import jp.co.yumemi.android.code_check.model.Item
 
 /**
  * リポジトリ検索画面
  */
 class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -26,10 +26,8 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
         val layoutManager = LinearLayoutManager(requireContext())
         val dividerItemDecoration =
             DividerItemDecoration(requireContext(), layoutManager.orientation)
-        val adapter = RepositoriesListAdapter(object : RepositoriesListAdapter.OnItemClickListener {
-            override fun itemClick(item: Item) {
-                gotoRepositoryFragment(item)
-            }
+        val adapter = RepositoriesListAdapter(onItemClick = { item ->
+            gotoRepositoryFragment(item)
         })
 
         binding.searchInputText.setOnEditorActionListener { editText, action, _ ->
@@ -47,9 +45,9 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
         }
     }
 
-    fun gotoRepositoryFragment(item: Item) {
-        val action = RepositoriesFragmentDirections
-            .actionRepositoriesFragmentToRepositoryFragment(item = item)
+    private fun gotoRepositoryFragment(item: Item) {
+        val action =
+            RepositoriesFragmentDirections.actionRepositoriesFragmentToRepositoryFragment(item = item)
         findNavController().navigate(action)
     }
 }
