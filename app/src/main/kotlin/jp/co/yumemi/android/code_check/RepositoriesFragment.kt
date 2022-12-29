@@ -35,18 +35,13 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
             }
         })
 
-        binding.searchInputText
-            .setOnEditorActionListener { editText, action, _ ->
-                if (action == EditorInfo.IME_ACTION_SEARCH) {
-                    editText.text.toString().let {
-                        viewModel.searchResults(it).apply {
-                            adapter.submitList(this)
-                        }
-                    }
-                    return@setOnEditorActionListener true
-                }
-                return@setOnEditorActionListener false
+        binding.searchInputText.setOnEditorActionListener { editText, action, _ ->
+            if (action == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.searchResults(editText.text.toString()).let { adapter.submitList(it) }
+                return@setOnEditorActionListener true
             }
+            return@setOnEditorActionListener false
+        }
 
         binding.recyclerView.also {
             it.layoutManager = layoutManager
