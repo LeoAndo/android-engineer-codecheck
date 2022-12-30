@@ -12,4 +12,5 @@
     <string name="forks_count">%d forks</string>
     <string name="open_issues_count">%d open issues</string>
     <string name="watchers_count">%d watchers</string>
+    <string name="desc_fabup">scroll Up</string>
 </resources>
