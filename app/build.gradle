@@ -15,12 +15,12 @@ try {
     logger.warn("Not Found local.properties: ${e.localizedMessage}")
 }
 android {
-    compileSdk 33
+    compileSdk 31
 
     defaultConfig {
         applicationId "jp.co.yumemi.android.codecheck"
         minSdk 23
-        targetSdk 33
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
