@@ -6,7 +6,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import jp.co.yumemi.android.code_check.data.api.GithubApi

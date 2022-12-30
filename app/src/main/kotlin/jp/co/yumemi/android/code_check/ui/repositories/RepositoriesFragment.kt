@@ -3,12 +3,10 @@
  */
 package jp.co.yumemi.android.code_check.ui.repositories
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +19,7 @@ import jp.co.yumemi.android.code_check.databinding.FragmentRepositoriesBinding
 import jp.co.yumemi.android.code_check.ui.extentions.hideKeyboard
 import jp.co.yumemi.android.code_check.ui.extentions.showToast
 import jp.co.yumemi.android.code_check.model.RepositorySummary
+import jp.co.yumemi.android.code_check.ui.extentions.showAlertDialog
 import java.util.*
 
 /**
@@ -70,20 +69,23 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
                     }
                 }
                 is UiState.Error -> {
+                    adapter.submitList(emptyList())
                     val defaultErrorMessage = uiState.throwable.localizedMessage
-                        ?: getString(R.string.default_error_message)
+                        ?: getString(R.string.default_error_msg)
                     val message = if (uiState.throwable is ErrorResult) {
                         when (uiState.throwable) {
-                            ErrorResult.ForbiddenError -> getString(R.string.forbidden_error_message)
                             ErrorResult.NetworkError -> getString(R.string.network_error_message)
-                            ErrorResult.NotFoundError -> getString(R.string.page_not_found_message)
-                            ErrorResult.UnAuthorizedError -> getString(R.string.unauthorized_error_message)
-                            is ErrorResult.UnexpectedError -> defaultErrorMessage
+                            is ErrorResult.ForbiddenError, is ErrorResult.UnAuthorizedError,
+                            is ErrorResult.UnprocessableEntity, is ErrorResult.UnexpectedError -> {
+                                defaultErrorMessage
+                            }
                         }
                     } else {
                         defaultErrorMessage
                     }
-                    requireContext().showToast(message)
+                    showAlertDialog(message = message, onClickPositiveButton = {
+                        viewModel.searchResults(binding.searchInputText.text.toString())
+                    }, positiveButtonText = getString(R.string.reload))
                 }
             }
         }

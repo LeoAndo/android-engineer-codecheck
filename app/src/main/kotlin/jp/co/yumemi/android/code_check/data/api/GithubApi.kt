@@ -3,12 +3,12 @@ package jp.co.yumemi.android.code_check.data.api
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
-import io.ktor.client.features.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import jp.co.yumemi.android.code_check.BuildConfig
-import jp.co.yumemi.android.code_check.data.ErrorResult
 import jp.co.yumemi.android.code_check.data.api.response.GithubSearchResponse
 import jp.co.yumemi.android.code_check.data.api.response.toModel
 import jp.co.yumemi.android.code_check.model.RepositorySummary
@@ -34,14 +34,11 @@ class GithubApi {
                 connectTimeoutMillis = TIMEOUT_MILLIS
                 socketTimeoutMillis = TIMEOUT_MILLIS
             }
-            HttpResponseValidator {
-                validateResponse { response ->
-                    when (response.status) {
-                        HttpStatusCode.Unauthorized -> throw ErrorResult.UnAuthorizedError
-                        HttpStatusCode.Forbidden -> throw ErrorResult.ForbiddenError
-                    }
-                }
+            install(Logging) {
+                logger = AppHttpLogger()
+                level = LogLevel.BODY
             }
+            expectSuccess = true
         }
     }
 
@@ -51,7 +48,7 @@ class GithubApi {
             parameter("q", query)
         }
         val data =
-            format.decodeFromString<GithubSearchResponse>(response.receive())
+            format.decodeFromString<GithubSearchResponse>(response.body())
         return data.toModel()
     }
 

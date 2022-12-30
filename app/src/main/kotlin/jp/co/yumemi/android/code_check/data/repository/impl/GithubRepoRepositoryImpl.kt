@@ -13,8 +13,6 @@ class GithubRepoRepositoryImpl @Inject constructor(
     private val api: GithubApi,
 ) : GithubRepoRepository {
     override suspend fun searchRepositories(query: String): List<RepositorySummary> {
-        return dataOrThrow(dispatcher) {
-            api.searchRepositories(query)
-        }
+        return dataOrThrow(dispatcher) { api.searchRepositories(query) }
     }
 }
