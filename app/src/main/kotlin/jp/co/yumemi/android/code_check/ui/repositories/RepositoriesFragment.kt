@@ -5,6 +5,7 @@ package jp.co.yumemi.android.code_check.ui.repositories
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -20,6 +21,7 @@ import jp.co.yumemi.android.code_check.databinding.FragmentRepositoriesBinding
 import jp.co.yumemi.android.code_check.ui.extentions.hideKeyboard
 import jp.co.yumemi.android.code_check.ui.extentions.showToast
 import jp.co.yumemi.android.code_check.model.RepositorySummary
+import java.util.*
 
 /**
  * リポジトリ検索画面
@@ -41,6 +43,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
 
         binding.searchInputText.setOnEditorActionListener { editText, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
+                Log.d("RepositoriesFragment", "検索日時 ${Date()}")
                 viewModel.searchResults(editText.text.toString())
                 hideKeyboard()
                 return@setOnEditorActionListener true

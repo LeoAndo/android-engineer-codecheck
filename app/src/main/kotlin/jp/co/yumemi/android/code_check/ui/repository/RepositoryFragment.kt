@@ -22,12 +22,9 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
 
     private var _binding: FragmentRepositoryBinding? = null
     private val binding get() = _binding!!
-    // private val viewModel by navGraphViewModels<RepositoriesViewModel>(R.id.nav_graph)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Log.d("検索した日時", viewModel.lastSearchDate?.toString() ?: "no date")
 
         _binding = FragmentRepositoryBinding.bind(view)
 
@@ -37,10 +34,13 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
         binding.nameView.text = item.name
         binding.languageView.text =
             requireContext().getString(R.string.written_language, item.language)
-        binding.starsView.text = "${item.stargazersCount} stars"
-        binding.watchersView.text = "${item.watchersCount} watchers"
-        binding.forksView.text = "${item.forksCount} forks"
-        binding.openIssuesView.text = "${item.openIssuesCount} open issues"
+        binding.starsView.text =
+            requireContext().getString(R.string.stargazers_count, item.stargazersCount)
+        binding.watchersView.text =
+            requireContext().getString(R.string.watchers_count, item.watchersCount)
+        binding.forksView.text = requireContext().getString(R.string.forks_count, item.forksCount)
+        binding.openIssuesView.text =
+            requireContext().getString(R.string.open_issues_count, item.openIssuesCount)
     }
 
     override fun onDestroyView() {

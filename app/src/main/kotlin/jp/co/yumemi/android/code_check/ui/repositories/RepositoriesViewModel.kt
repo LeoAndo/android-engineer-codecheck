@@ -3,6 +3,7 @@
  */
 package jp.co.yumemi.android.code_check.ui.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,8 +18,6 @@ import javax.inject.Inject
 class RepositoriesViewModel @Inject constructor(
     private val repository: GithubRepoRepository,
 ) : ViewModel() {
-    var lastSearchDate: Date? = null
-        private set
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _uiState.value = UiState.Error(throwable)
@@ -30,7 +29,6 @@ class RepositoriesViewModel @Inject constructor(
         viewModelScope.launch(coroutineExceptionHandler) {
             _uiState.value = UiState.Loading
             val items = repository.searchRepositories(inputText)
-            lastSearchDate = Date()
             withContext(Dispatchers.Main) {
                 _uiState.value = UiState.Data(items)
             }

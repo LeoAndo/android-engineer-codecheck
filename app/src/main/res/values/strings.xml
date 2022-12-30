@@ -14,9 +14,9 @@
     <string name="default_error_message">error.</string>
     <string name="no_content_description">No contentDescription</string>
     <string name="content_description_owner_avatar_icon">owner Avatar Icon</string>
-    <string name="stargazers_count">%s Star</string>
-    <string name="forks_count">%s Fork</string>
-    <string name="open_issues_count">%s Issue</string>
-    <string name="watchers_count">%s Watcher</string>
+    <string name="stargazers_count">%d stars</string>
+    <string name="forks_count">%d forks</string>
+    <string name="open_issues_count">%d open issues</string>
+    <string name="watchers_count">%d watchers</string>
     <string name="language">language: %s</string>
 </resources>
