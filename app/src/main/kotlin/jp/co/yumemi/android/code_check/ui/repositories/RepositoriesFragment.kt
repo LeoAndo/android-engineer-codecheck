@@ -69,7 +69,6 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
                     }
                 }
                 is UiState.Error -> {
-                    Log.d("TAG", "onViewCreated: call Error")
                     adapter.submitList(emptyList())
                     val defaultErrorMessage = uiState.throwable.localizedMessage
                         ?: getString(R.string.default_error_msg)
