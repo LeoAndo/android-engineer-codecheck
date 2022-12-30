@@ -56,6 +56,10 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
             it.adapter = adapter
         }
 
+        binding.fabUp.setOnClickListener {
+            binding.recyclerView.scrollToPosition(0)
+        }
+
         viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
             val isLoading = uiState is UiState.Loading
             binding.recyclerView.isVisible = !isLoading
