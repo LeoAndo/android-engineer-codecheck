@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Item(
+data class RepositorySummary(
     val name: String,
     val ownerIconUrl: String,
     val language: String,

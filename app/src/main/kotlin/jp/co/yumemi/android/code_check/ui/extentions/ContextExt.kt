@@ -1,4 +1,4 @@
-package jp.co.yumemi.android.code_check.extentions
+package jp.co.yumemi.android.code_check.ui.extentions
 
 import android.content.Context
 import android.widget.Toast
