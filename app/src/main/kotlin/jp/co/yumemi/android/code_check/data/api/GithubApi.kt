@@ -37,15 +37,8 @@ class GithubApi {
             HttpResponseValidator {
                 validateResponse { response ->
                     when (response.status) {
-                        HttpStatusCode.Unauthorized -> {
-                            throw ErrorResult.UnAuthorizedError
-                        }
-                        HttpStatusCode.NotFound -> {
-                            throw ErrorResult.NotFoundError
-                        }
-                        HttpStatusCode.Forbidden -> {
-                            throw ErrorResult.ForbiddenError
-                        }
+                        HttpStatusCode.Unauthorized -> throw ErrorResult.UnAuthorizedError
+                        HttpStatusCode.Forbidden -> throw ErrorResult.ForbiddenError
                     }
                 }
             }
