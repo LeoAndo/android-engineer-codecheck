@@ -3,7 +3,6 @@
  */
 package jp.co.yumemi.android.code_check.ui.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.co.yumemi.android.code_check.data.repository.GithubRepoRepository
 import kotlinx.coroutines.*
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

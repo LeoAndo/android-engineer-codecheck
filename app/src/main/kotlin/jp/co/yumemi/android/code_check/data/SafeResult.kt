@@ -1,21 +1,22 @@
 package jp.co.yumemi.android.code_check.data
 
-import io.ktor.client.features.*
-import io.ktor.network.sockets.*
+import io.ktor.client.call.*
+import io.ktor.client.network.sockets.*
+import io.ktor.client.plugins.*
+import io.ktor.http.*
+import jp.co.yumemi.android.code_check.data.api.response.GithubErrorResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.lang.Exception
-
-sealed class SafeResult<out R> {
-    data class Success<out T>(val data: T) : SafeResult<T>()
-    data class Error(val errorResult: ErrorResult) : SafeResult<Nothing>()
-}
+import java.net.UnknownHostException
 
 sealed class ErrorResult : Exception() {
-    object UnAuthorizedError : ErrorResult()
-    object NotFoundError : ErrorResult()
-    object ForbiddenError : ErrorResult()
+    data class UnAuthorizedError(override val message: String) : ErrorResult()
+    data class ForbiddenError(override val message: String) : ErrorResult()
     object NetworkError : ErrorResult()
+    data class UnprocessableEntity(override val message: String) : ErrorResult()
     data class UnexpectedError(override val message: String) : ErrorResult()
 }
 
@@ -24,32 +25,36 @@ suspend fun <T> dataOrThrow(
     apiCall: suspend () -> T
 ): T {
     return withContext(dispatcher) {
-        return@withContext when (val result = safeCall(dispatcher) { apiCall.invoke() }) {
-            is SafeResult.Error -> throw  result.errorResult
-            is SafeResult.Success -> result.data
-        }
-    }
-}
-
-private suspend fun <T> safeCall(
-    dispatcher: CoroutineDispatcher,
-    apiCall: suspend () -> T
-): SafeResult<T> {
-    return withContext(dispatcher) {
         try {
-            SafeResult.Success(apiCall.invoke())
+            apiCall.invoke()
         } catch (e: Throwable) {
             when (e) {
-                is HttpRequestTimeoutException, is ConnectTimeoutException, is SocketTimeoutException -> {
-                    SafeResult.Error(ErrorResult.NetworkError)
+                is UnknownHostException, is HttpRequestTimeoutException, is ConnectTimeoutException, is SocketTimeoutException -> {
+                    throw ErrorResult.NetworkError
                 }
-                else -> {
-                    SafeResult.Error(
-                        ErrorResult.UnexpectedError(
-                            e.localizedMessage ?: "UnexpectedError"
-                        )
-                    )
+                // ktor: 300番台のエラー
+                is RedirectResponseException -> throw e
+                is ClientRequestException -> { // ktor: 400番台のエラー
+                    val errorResponse = e.response
+                    val format = Json { ignoreUnknownKeys = true }
+                    val message =
+                        format.decodeFromString<GithubErrorResponse>(errorResponse.body()).message
+                    when (errorResponse.status) {
+                        HttpStatusCode.Unauthorized -> {
+                            throw ErrorResult.UnAuthorizedError(message)
+                        }
+                        HttpStatusCode.Forbidden -> throw ErrorResult.ForbiddenError(message)
+                        HttpStatusCode.UnprocessableEntity -> {
+                            throw ErrorResult.UnprocessableEntity(message)
+                        }
+                        else -> throw e
+                    }
                 }
+                // ktor: 500番代のエラー
+                is ServerResponseException -> throw e
+                // ktor: それ以外のエラー
+                is ResponseException -> throw e
+                else -> throw e
             }
         }
     }
