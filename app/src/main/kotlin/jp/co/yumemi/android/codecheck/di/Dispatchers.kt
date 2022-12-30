@@ -1,0 +1,7 @@
+package jp.co.yumemi.android.codecheck.di
+
+import javax.inject.Qualifier
+
+@Retention(AnnotationRetention.BINARY)
+@Qualifier
+annotation class IoDispatcher
