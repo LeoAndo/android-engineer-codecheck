@@ -62,7 +62,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
             binding.recyclerView.scrollToPosition(0)
         }
 
-        binding.buttonReload.setOnClickListener {
+        binding.errorLayout.buttonReload.setOnClickListener {
             viewModel.searchResults(binding.searchInputText.text.toString())
         }
 
@@ -74,7 +74,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
                 val isLoading = uiState is UiState.Loading
                 binding.recyclerView.isVisible = !isLoading
                 binding.progress.isVisible = isLoading
-                binding.errorLayout.isVisible = (uiState is UiState.Error)
+                binding.errorLayout.content.isVisible = (uiState is UiState.Error)
                 when (uiState) {
                     UiState.Initial, UiState.Loading -> {}
                     is UiState.Data -> {
@@ -98,7 +98,7 @@ class RepositoriesFragment : Fragment(R.layout.fragment_repositories) {
                         } else {
                             defaultErrorMessage
                         }
-                        binding.errorMessage.text = message
+                        binding.errorLayout.errorMessage.text = message
                     }
                 }
             }

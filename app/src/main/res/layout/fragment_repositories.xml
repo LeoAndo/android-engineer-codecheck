@@ -73,27 +73,11 @@
             android:layout_gravity="center"
             android:indeterminate="true" />
 
-        <LinearLayout
+        <include
             android:id="@+id/errorLayout"
+            layout="@layout/error_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/errorMessage"
-                style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                tools:text="エラーメッセージをここに表示する" />
-
-            <Button
-                android:id="@+id/buttonReload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/reload" />
-        </LinearLayout>
+            android:layout_height="match_parent" />
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
