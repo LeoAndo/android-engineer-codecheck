@@ -72,6 +72,12 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:indeterminate="true" />
+
+        <include
+            android:id="@+id/errorLayout"
+            layout="@layout/error_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
