@@ -1,48 +1,43 @@
-# 株式会社ゆめみ Android エンジニアコードチェック課題
+# アプリ仕様
 
-## 概要
+Githubのリポジトリを検索するアプリになります。<br>
 
-本プロジェクトは株式会社ゆめみ（以下弊社）が、弊社に Android エンジニアを希望する方に出す課題のベースプロジェクトです。本課題が与えられた方は、下記の概要を詳しく読んだ上で課題を取り組んでください。
+# 開発環境
+- IDE: Android Studio Dolphin 2021.3.1 Patch 1
+- 動作OSバージョン: OS 6.0以上
 
-## アプリ仕様
+# アプリ開発時の準備 (重要)
+秘匿情報の管理を`local.properties`で行っています。<br>
+[fine-grained personal access token作成手順](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#fine-grained-personal-access-token-%E3%81%AE%E4%BD%9C%E6%88%90) に沿ってaccess tokenを作成し、以下の11行目の通り設定値を追加してください。
+<img src= "https://user-images.githubusercontent.com/16476224/208823985-4d0fa8ec-ef81-48de-94e7-8552728e304a.png" />
 
-本アプリは GitHub のリポジトリを検索するアプリです。
+# デザイン面：アピールポイント
+- Themed Iconの適用
+- Material3 Themeの適用
+- 従来のAndroid Viewシステムを使用
+- Dark Theme対応
 
-<img src="docs/app.gif" width="320">
+# 動作確認
 
-### 環境
+<strong> 以降の動作確認では、暗号化されたリリースビルドで動作確認を行なっています。 </strong>
 
-- IDE：Android Studio Arctic Fox | 2020.3.1 Patch 1
-- Kotlin：1.5.31
-- Java：11
-- Gradle：7.0.1
-- minSdk：23
-- targetSdk：31
+## サポートOSの動作確認
+| Resizable Emulator API 33 | Pixel6 API 23 |
+|:---|:---:|
+|<img src="https://user-images.githubusercontent.com/16476224/210133013-e7fbc548-3df9-4b86-997c-4b04389d99fd.gif" width=320 /> | <img src="https://user-images.githubusercontent.com/16476224/210133039-c65133e7-4ef9-4fe4-a356-906c9202ef2a.gif" width=320 /> |
 
-※ ライブラリの利用はオープンソースのものに限ります。
+## Themed Iconの適用
+| Resizable Emulator API 33 |
+|:---|
+|<img src="https://user-images.githubusercontent.com/16476224/210133068-33cb9e8d-5b57-40b8-ab9a-c918415ad5fe.png" width=320 />
 
-### 動作
+## Dark Themeの確認
+| Resizable Emulator API 33 |
+|:---|
+|<img src="https://user-images.githubusercontent.com/16476224/210132958-68a07cd5-38b2-42c3-aeef-f02e58fb772c.gif" width=320 />
 
-1. 何かしらのキーワードを入力
-2. GitHub API（`search/repositories`）でリポジトリを検索し、結果一覧を概要（リポジトリ名）で表示
-3. 特定の結果を選択したら、該当リポジトリの詳細（リポジトリ名、オーナーアイコン、プロジェクト言語、Star 数、Watcher 数、Fork 数、Issue 数）を表示
 
-## 課題取り組み方法
-
-Issues を確認した上、本プロジェクトを [**Duplicate** してください](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository)（Fork しないようにしてください。必要ならプライベートリポジトリにしても大丈夫です）。今後のコミットは全てご自身のリポジトリで行ってください。
-
-コードチェックの課題 Issue は全て [`課題`](https://github.com/yumemi-inc/android-engineer-codecheck/milestone/1) Milestone がついており、難易度に応じて Label が [`初級`](https://github.com/yumemi-inc/android-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3A初級+milestone%3A課題)、[`中級`](https://github.com/yumemi-inc/android-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3A中級+milestone%3A課題+) と [`ボーナス`](https://github.com/yumemi-inc/android-engineer-codecheck/issues?q=is%3Aopen+is%3Aissue+label%3Aボーナス+milestone%3A課題+) に分けられています。課題の必須／選択は下記の表とします。
-
-|   | 初級 | 中級 | ボーナス
-|--:|:--:|:--:|:--:|
-| 新卒／未経験者 | 必須 | 選択 | 選択 |
-| 中途／経験者 | 必須 | 必須 | 選択 |
-
-課題 Issueをご自身のリポジトリーにコピーするGitHub Actionsをご用意しております。  
-[こちらのWorkflow](./.github/workflows/copy-issues.yml)を[手動でトリガーする](https://docs.github.com/ja/actions/managing-workflow-runs/manually-running-a-workflow)ことでコピーできますのでご活用下さい。
-
-課題が完成したら、リポジトリのアドレスを教えてください。
-
-## 参考記事
-
-提出された課題の評価ポイントに関しては、[こちらの記事](https://qiita.com/blendthink/items/aa70b8b3106fb4e3555f)に詳しく書かれてありますので、ぜひご覧ください。
+## 異常系: Resizable Emulator API 33
+| 接続エラー | 401: 認証エラー | 403: アクセス回数制限 |
+|:---|:---|:---|
+|<img src="https://user-images.githubusercontent.com/16476224/210133261-4138e04d-1132-4cdd-8450-f4215ba55c50.gif" width=320 />|<img src="https://user-images.githubusercontent.com/16476224/210133495-3242e004-dee6-4d47-844c-ef3db9cd1b11.png" width=320 />|<img src="https://user-images.githubusercontent.com/16476224/210133567-5746f6b7-a385-41f8-92b7-4e70a6107c58.png" width=320 />|
