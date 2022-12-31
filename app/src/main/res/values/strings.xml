@@ -6,7 +6,6 @@
     <string name="reload">reload</string>
     <string name="empty_message">search result empty.</string>
     <string name="network_error_message">Please check the network status.</string>
-    <string name="no_content_description">No contentDescription</string>
     <string name="content_description_owner_avatar_icon">owner Avatar Icon</string>
     <string name="stargazers_count">%d stars</string>
     <string name="forks_count">%d forks</string>
