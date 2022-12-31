@@ -24,7 +24,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "GITHUB_ACCESS_TOKEN", "\"" + localProperties['GITHUB_ACCESS_TOKEN'] + "\"")
         buildConfigField "String", "GITHUB_API_DOMAIN", "\"https://api.github.com\""
     }
