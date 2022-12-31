@@ -15,10 +15,10 @@ Githubのリポジトリを検索するアプリになります。<br>
 <img src= "https://user-images.githubusercontent.com/16476224/208823985-4d0fa8ec-ef81-48de-94e7-8552728e304a.png" />
 
 # デザイン面：アピールポイント
-- Themed Iconの適用
-- Material3 Themeの適用
+- [Themed Iconの適用](https://github.com/LeoAndo/android-engineer-codecheck/pull/22)
+- [Material3 Themeの適用](https://github.com/LeoAndo/android-engineer-codecheck/pull/19)
 - 従来のAndroid Viewシステムを使用
-- Dark Theme対応
+- [Dark Theme対応](https://github.com/LeoAndo/android-engineer-codecheck/pull/19)
 
 # 動作確認
 
