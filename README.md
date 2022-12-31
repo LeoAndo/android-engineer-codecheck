@@ -2,6 +2,9 @@
 
 Githubのリポジトリを検索するアプリになります。<br>
 
+# アーキテクチャ
+[Wiki](https://github.com/LeoAndo/android-engineer-codecheck/wiki/architecture) にまとめています。<br>
+
 # 開発環境
 - IDE: Android Studio Dolphin 2021.3.1 Patch 1
 - 動作OSバージョン: OS 6.0以上
