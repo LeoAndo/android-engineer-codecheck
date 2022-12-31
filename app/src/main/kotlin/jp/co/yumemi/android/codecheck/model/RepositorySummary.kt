@@ -8,8 +8,8 @@ data class RepositorySummary(
     val name: String,
     val ownerIconUrl: String,
     val language: String,
-    val stargazersCount: Long,
-    val watchersCount: Long,
-    val forksCount: Long,
-    val openIssuesCount: Long,
+    val stargazersCount: Int,
+    val watchersCount: Int,
+    val forksCount: Int,
+    val openIssuesCount: Int,
 ) : Parcelable

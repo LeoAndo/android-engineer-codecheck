@@ -130,10 +130,10 @@ fun GithubSearchResponse.toModel(): List<RepositorySummary> {
             name = it.name,
             ownerIconUrl = it.owner.avatar_url,
             language = it.language.toString(),
-            stargazersCount = it.stargazers_count.toLong(),
-            watchersCount = it.watchers_count.toLong(),
-            forksCount = it.forks_count.toLong(),
-            openIssuesCount = it.open_issues_count.toLong(),
+            stargazersCount = it.stargazers_count,
+            watchersCount = it.watchers_count,
+            forksCount = it.forks_count,
+            openIssuesCount = it.open_issues_count,
         )
     }
 }
