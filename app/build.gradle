@@ -28,9 +28,14 @@ android {
         buildConfigField "String", "GITHUB_API_DOMAIN", "\"https://api.github.com\""
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testProguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguardTest-rules.pro'
         }
     }
     compileOptions {
